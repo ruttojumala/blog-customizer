@@ -26,22 +26,24 @@ export const ArticleParamsForm = ({
 	articleSettings,
 	onApplySettings,
 }: ArticleParamsFormProps) => {
-	const [isOpen, setIsOpen] = useState(false);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	const [draftSettings, setDraftSettings] =
 		useState<ArticleStateType>(articleSettings);
 	const panelRef = useRef<HTMLDivElement>(null);
 
 	const toggleSidebar = () => {
-		setIsOpen((prev) => !prev);
+		setIsMenuOpen((prev) => !prev);
 	};
 
 	useEffect(() => {
+		if (!isMenuOpen) return;
+
 		const handleClickOutside = (event: MouseEvent) => {
 			if (
 				panelRef.current &&
 				!panelRef.current.contains(event.target as Node)
 			) {
-				setIsOpen(false);
+				setIsMenuOpen(false);
 			}
 		};
 
@@ -50,7 +52,7 @@ export const ArticleParamsForm = ({
 		return () => {
 			document.removeEventListener('mousedown', handleClickOutside);
 		};
-	}, []);
+	}, [isMenuOpen]);
 
 	const handleFontChange = (option: typeof draftSettings.fontFamilyOption) => {
 		setDraftSettings((prev) => ({ ...prev, fontFamilyOption: option }));
@@ -78,7 +80,8 @@ export const ArticleParamsForm = ({
 		setDraftSettings((prev) => ({ ...prev, contentWidth: option }));
 	};
 
-	const handleApplyClick = () => {
+	const handleApplySubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
 		onApplySettings(draftSettings);
 	};
 
@@ -89,13 +92,13 @@ export const ArticleParamsForm = ({
 
 	return (
 		<div>
-			<ArrowButton isOpen={isOpen} onClick={toggleSidebar} />
+			<ArrowButton isOpen={isMenuOpen} onClick={toggleSidebar} />
 			<aside
 				ref={panelRef}
 				className={`${styles.container} ${
-					isOpen ? styles.container_open : ''
+					isMenuOpen ? styles.container_open : ''
 				}`}>
-				<form className={styles.form}>
+				<form className={styles.form} onSubmit={handleApplySubmit}>
 					<Text as='h1' size={31} weight={800} uppercase>
 						Задайте параметры
 					</Text>
@@ -159,12 +162,7 @@ export const ArticleParamsForm = ({
 							type='clear'
 							onClick={handleResetClick}
 						/>
-						<Button
-							title='Применить'
-							htmlType='button'
-							type='apply'
-							onClick={handleApplyClick}
-						/>
+						<Button title='Применить' htmlType='submit' type='apply' />
 					</div>
 				</form>
 			</aside>
