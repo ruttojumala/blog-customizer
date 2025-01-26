@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 
-// Сообщаем вебпаку, что этот файл использует это изображение.
 import plane from 'src/images/plane.png';
 import { Text } from 'src/ui/text';
 
@@ -19,7 +18,7 @@ export const Article = () => {
 			</div>
 			<img className={styles.image} src={plane} alt='Картинка самолета' />
 			<Text dynamic size={18} fontStyle='italic'>
-				Фото: Hans-Peter Gauster , &quot;Bombardier CSeries CS300 HB-JCA&quot; ©
+				Фото: Hans-Peter Gauster, &quot;Bombardier CSeries CS300 HB-JCA&quot; ©
 				2017 CC BY-SA 2.0
 			</Text>
 			<Text dynamic size={18}>
@@ -39,11 +38,11 @@ export const Article = () => {
 			</Text>
 			<Text dynamic size={18}>
 				С мая 2017 года &quot;Бомбардье&quot; носит имя &quot;Швейцарская
-				Романдия&quot; и регистрационный номер HB-JCA ; совершает в среднем 4
+				Романдия&quot; и регистрационный номер HB-JCA; совершает в среднем 4
 				коммерческих полёта в сутки. Его можно видеть в &quot;Домодедово&quot;,
 				а также в аэропортах Парижа, Валенсии, Кракова, Берлина, Вены, Загреба,
-				на на Майорке, Крите и Сицилии. Самолёт останется в той же ливрее, пока
-				его купит другая авиакомпания.
+				на Майорке, Крите и Сицилии. Самолёт останется в той же ливрее, пока его
+				купит другая авиакомпания.
 			</Text>
 		</article>
 	);
